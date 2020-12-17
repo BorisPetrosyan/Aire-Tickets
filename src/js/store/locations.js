@@ -1,7 +1,7 @@
 import api from '../services/apiService';
 import { formateDate } from '../helpers/date';
 
-class Locations {
+export class Locations {
     constructor(api, helpers) {
         this.api = api;
         this.countries = null;
@@ -54,6 +54,7 @@ class Locations {
     }
 
     serializeCountries(countries) {
+            if (!Array.isArray(countries) || !countries.length) return {}
             return countries.reduce((acc, country) => {
                 acc[country.code] = country;
                 return acc;
@@ -61,6 +62,7 @@ class Locations {
         }
         // *переделать serialize
     serializeCities(cities) {
+
         return cities.reduce((acc, city) => {
             const country_name = this.countries[city.country_code].name;
             city.name = city.name || city.name_translations.en;
@@ -76,16 +78,19 @@ class Locations {
 
     serializeAirlines(airlines) {
         return airlines.reduce((acc, item) => {
-            item.logo = `http://pics.avs.io/200/200/${item.code}.png`;
-            item.name = item.name || item.name_translations.en;
-            acc[item.code] = item;
+            const itemCopy = {...item }
+            itemCopy.logo = `http://pics.avs.io/200/200/${itemCopy.code}.png`;
+            itemCopy.name = itemCopy.name || itemCopy.name_translations.en;
+            acc[itemCopy.code] = itemCopy;
             return acc;
         }, {});
     }
 
     async fetchTickets(params) {
         const response = await this.api.prices(params);
+
         this.lastSearch = this.serializeTickets(response.data);
+
     }
 
     serializeTickets(tickets) {
