@@ -18,8 +18,9 @@ export class Locations {
             this.api.airlines(),
         ]);
 
-        const [countries, cities, airlines] = response;
+        const [countries, cities, airlines] = response; 
         this.countries = this.serializeCountries(countries);
+        
         this.cities = this.serializeCities(cities);
         this.shortCities = this.createShortCities(this.cities);
         this.airlines = this.serializeAirlines(airlines);

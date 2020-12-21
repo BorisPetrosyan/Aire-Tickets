@@ -1,29 +1,32 @@
 class FavoriteUI {
     constructor() {
-        this.container = document.querySelector('.favorites #dropdown1');
+        this.container = document.querySelector(".favorites #dropdown1");
     }
 
     get containerDropdownUI() {
         return this.container;
     }
 
-
     renderFavorities(ticket, btnInfo) {
-
-        const ticketInfo = ticket.lastElementChild.dataset
-        let haseInFav = true
-        const favorites = this.container.querySelectorAll('.delete-favorite')
+        const ticketInfo = ticket.lastElementChild.dataset;
+        let haseInFav = true;
+        const favorites = this.container.querySelectorAll(".delete-favorite");
         favorites.forEach(element => {
-            if (JSON.stringify(btnInfo.dataset) === JSON.stringify(element.dataset)) {
-                haseInFav = false
-                M.toast({ html: 'This ticket is already add in favorite!' })
+            if (
+                JSON.stringify(btnInfo.dataset) ===
+                JSON.stringify(element.dataset)
+            ) {
+                haseInFav = false;
+                M.toast({ html: "This ticket is already add in favorite!" });
             }
         });
 
-        const tamplate = FavoriteUI.favoritTicketsTemplate(ticketInfo, haseInFav);
-        this.container.insertAdjacentHTML('afterbegin', tamplate);
+        const tamplate = FavoriteUI.favoritTicketsTemplate(
+            ticketInfo,
+            haseInFav,
+        );
+        this.container.insertAdjacentHTML("afterbegin", tamplate);
     }
-
 
     static favoritTicketsTemplate(ticketInfo, haseInFav) {
         if (haseInFav) {
@@ -66,13 +69,11 @@ class FavoriteUI {
             >Delete</a
           >
         </div>
-      </div>`
-        } else { return '' }
-
+      </div>`;
+        } else {
+            return "";
+        }
     }
-
-
-
 }
 
 const favorite = new FavoriteUI();

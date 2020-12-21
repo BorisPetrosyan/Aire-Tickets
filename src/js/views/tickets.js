@@ -1,10 +1,9 @@
-import currencyUI from './currency';
+import currencyUI from "./currency";
 
 class TicketsUI {
     constructor(currency) {
-        this.container = document.querySelector('.tickets-sections .row');
+        this.container = document.querySelector(".tickets-sections .row");
         this.getCurrencySymbol = currency.getCurrencySymbol.bind(currency);
-
     }
     get containerUI() {
         return this.container;
@@ -18,26 +17,25 @@ class TicketsUI {
             return;
         }
 
-        let fragment = '';
+        let fragment = "";
 
         const currency = this.getCurrencySymbol();
 
         tickets.forEach(ticket => {
-
             const template = TicketsUI.ticketTemplate(ticket, currency);
             fragment += template;
         });
 
-        this.container.insertAdjacentHTML('afterbegin', fragment);
+        this.container.insertAdjacentHTML("afterbegin", fragment);
     }
 
     clearContainer() {
-        this.container.innerHTML = '';
+        this.container.innerHTML = "";
     }
 
     showEmptyMsg() {
         const template = TicketsUI.emptyMsgTemplate();
-        this.container.insertAdjacentHTML('afterbegin', template);
+        this.container.insertAdjacentHTML("afterbegin", template);
     }
 
     static emptyMsgTemplate() {
@@ -47,8 +45,6 @@ class TicketsUI {
     }
 
     static ticketTemplate(ticket, currency) {
-
-
         return `
     <div class="col s12 m6">
       <div class="card ticket-card">
